@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+</head>
+<body>
+        <p th:text="${session.loginUser}" hidden="hidden">session 값</p>
+        <a href="/user/update">내 정보 수정하기</a>
+        <a href="/user/logout">로그아웃</a>
+        <a href="/">메인페이지로</a>
+</body>
+</html>
