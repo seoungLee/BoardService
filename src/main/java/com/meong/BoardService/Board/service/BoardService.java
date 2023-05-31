@@ -4,6 +4,10 @@ import com.meong.BoardService.Board.dto.BoardDTO;
 import com.meong.BoardService.Board.entity.BoardEntity;
 import com.meong.BoardService.Board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,5 +56,13 @@ public class BoardService {
 
     public void delete(Long id) {
         boardRepository.deleteById(id);
+    }
+
+    public Page<BoardDTO> paging(Pageable pageable) {
+        // 한 페이지당 3개의 글, 정렬기준은 pk 값인 id
+        int page = pageable.getPageNumber() - 1;
+        int pageLimit = 3;
+        Page<BoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
+
     }
 }

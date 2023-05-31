@@ -23,3 +23,5 @@
 5. 글삭제(/board/delete/{id})
    - 글조회 화면에서 삭제버튼 클릭
    - 삭제처리 후 redirect 처리하여 메인페이지(글목록) 출력
+6. 페이징(/board/paging)
+   - /board/paging?page=2
