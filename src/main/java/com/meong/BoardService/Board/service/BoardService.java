@@ -63,6 +63,7 @@ public class BoardService {
         int page = pageable.getPageNumber() - 1;
         int pageLimit = 3;
         Page<BoardEntity> boardEntities = boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
-
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        return boardDTOS;
     }
 }
