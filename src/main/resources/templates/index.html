@@ -22,6 +22,14 @@
         <td th:text="${board.boardHits}"></td>
     </tr>
 </table>
+
+<!-- 첫번째 페이지로 이동 -->
+<!-- /board/paging?page=1 -->
+<a th:href="@{/paging(page=1)}">첫 페이지</a>
+<!-- 이전 링크 활성화 비활성화 -->
+<!-- boardList.getNumber() 사용자:2페이지 getNumber()=1 -->
+<a th:href="${boardList.first} ? '#' : @{/paging(page=${boardList.number})}">이전 페이지</a>
+
 <span th:each="page: ${#numbers.sequence(startPage, endPage)}">
 <!-- 현재페이지는 링크 없이 숫자만 -->
     <span th:if="${page == boardList.number + 1}" th:text="${page}"></span>
@@ -30,14 +38,18 @@
         <a th:href="@{/paging(page=${page})}" th:text="${page}"></a>
     </span>
 </span>
-<button onclick="boardWrite()">게시글작성</button>
-<button onclick="paging()">페이징목록</button>
+
+<!-- 다음 링크 활성화 비활성화
+    사용자: 2페이지, getNumber: 1, 3페이지-->
+<a th:href="${boardList.last} ? '#' : @{/paging(page=${boardList.number + 2})}">다음 페이지</a>
+<!-- 마지막 페이지로 이동 -->
+<a th:href="@{/paging(page=${boardList.totalPages})}">마지막 페이지</a>
+<div>
+    <button onclick="boardWrite()">게시글작성</button>
+</div>
 <script>
     const boardWrite = () => {
         location.href = "/board/write";
-    }
-    const paging = () => {
-        location.href = "/board/paging";
     }
 </script>
 </body>
